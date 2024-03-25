@@ -49,6 +49,11 @@ locals {
   # var.nat_instance_eip_ids ignored if doesn't match AZ count
   reuse_nat_instance_eips = length(var.nat_instance_eip_ids) == length(var.vpc_az_maps)
   nat_instance_eip_ids    = local.reuse_nat_instance_eips ? var.nat_instance_eip_ids : aws_eip.nat_instance_eips[*].id
+
+  # Must provide exactly 1 EIP per AZ
+  # var.nat_gateway_eip_ids ignored if doesn't match AZ count
+  reuse_nat_gateway_eips = length(var.nat_gateway_eip_ids) == length(var.vpc_az_maps)
+  nat_gateway_eip_ids    = local.reuse_nat_gateway_eips ? var.nat_gateway_eip_ids : aws_eip.nat_gateway_eips[*].id
 }
 
 resource "aws_eip" "nat_instance_eips" {

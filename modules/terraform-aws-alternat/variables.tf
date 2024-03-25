@@ -37,6 +37,16 @@ variable "create_nat_gateways" {
   default     = true
 }
 
+variable "nat_gateway_eip_ids" {
+  description = <<-EOT
+  Allocation IDs of Elastic IPs to associate with the NAT Gateways. If not specified, EIPs will be created.
+
+  Note: if the number of EIPs does not match the number of subnets specified in `vpc_public_subnet_ids`, this variable will be ignored.
+  EOT
+  type        = list(string)
+  default     = []
+}
+
 variable "connectivity_test_check_urls" {
   description = "List of URLs to check with the connectivity tester function."
   type        = list(string)
