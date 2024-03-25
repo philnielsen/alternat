@@ -428,7 +428,7 @@ resource "aws_eip" "nat_gateway_eips" {
   for_each = {
     for obj in var.vpc_az_maps
     : obj.az => obj.public_subnet_id
-    if var.create_nat_gateways
+    if var.create_nat_gateways && !local.reuse_nat_gateway_eips
   }
   tags = merge(var.tags, {
     "Name" = "alternat-gateway-eip"
